@@ -1,0 +1,39 @@
+name: 24시간 주기 통합 예보 업데이트
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # UTC 00:00 = 한국시간 09:00 (오전 수집에 적합)
+  workflow_dispatch:
+
+jobs:
+  update-forecast:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: 의존성 설치
+        run: pip install -r requirements.txt
+
+      - name: 통합 예보 업데이트 실행
+        env:
+          KMA_API_KEY: ${{ secrets.KMA_API_KEY }}
+          KPX_API_KEY: ${{ secrets.KPX_API_KEY }}
+        run: python utils/run_24hours.py
+
+      - name: DB 자동 커밋
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "[자동] KPX 예보 + KMA 데이터 업데이트"
+          file_pattern: database/jeju_energy.db
