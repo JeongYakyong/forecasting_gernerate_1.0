@@ -82,7 +82,7 @@ def daily_historical_update(start_date, end_date):
         
     print(f"일일 실측 업데이트 시작: {start_date} ~ {end_date}")
     
-    db = JejuEnergyDB("jeju_energy.db")
+    db = JejuEnergyDB()
     
     # 1. API 각각 독립 호출
     kpx_data = pd.DataFrame()
@@ -154,7 +154,7 @@ def daily_historical_update(start_date, end_date):
 def daily_historical_kpx(start_date, end_date):
     """ KPX 실측 발전량 데이터 수집 및 파생변수 계산 """
     print(f"KPX 발전량 실측 업데이트 시작: {start_date} ~ {end_date}")
-    db = JejuEnergyDB("jeju_energy.db")
+    db = JejuEnergyDB()
     
     try:
         actual_df = fetch_kpx_past(start_date, end_date)
@@ -199,7 +199,7 @@ def daily_historical_kpx(start_date, end_date):
 def daily_historical_kma(start_date, end_date):
     """ KMA 종관기상관측(ASOS) 실측 데이터 수집 """
     print(f"KMA 기상 실측 업데이트 시작: {start_date} ~ {end_date}")
-    db = JejuEnergyDB("jeju_energy.db")
+    db = JejuEnergyDB()
     
     try:
         asos_data = fetch_kma_past_asos(
@@ -221,7 +221,7 @@ def daily_historical_kma(start_date, end_date):
 def daily_historical_kpx_smp(start_date, end_date):
     """ KPX SMP 실측 가격 데이터 수집 """
     print(f"KPX SMP 실측 업데이트 시작: {start_date} ~ {end_date}")
-    db = JejuEnergyDB("jeju_energy.db")
+    db = JejuEnergyDB()
     
     try:
         smp_data = fetch_kpx_historical(start_date, end_date, KPX_KEY) # 전역 변수 필요
@@ -246,7 +246,7 @@ def daily_forecast_and_predict(start_date, end_date):
     end_dt = datetime.strptime(end_date, "%Y-%m-%d")
     
     print(f"🔄 통합 예보 업데이트 시작: {start_date} ~ {end_date}")
-    db = JejuEnergyDB("jeju_energy.db")
+    db = JejuEnergyDB()
     current_dt = start_dt
     
     while current_dt <= end_dt:
@@ -296,7 +296,7 @@ def daily_forecast_kpx(start_date, end_date):
     end_dt = datetime.strptime(end_date, "%Y-%m-%d")
     
     print(f"⚡ KPX 단독 예보 업데이트 시작: {start_date} ~ {end_date}")
-    db = JejuEnergyDB("jeju_energy.db")
+    db = JejuEnergyDB()
     current_dt = start_dt
     
     while current_dt <= end_dt:
@@ -321,7 +321,7 @@ def daily_forecast_kma(start_date, end_date):
     end_dt = datetime.strptime(end_date, "%Y-%m-%d")
     
     print(f"🌤️ KMA 단독 예보 업데이트 시작: {start_date} ~ {end_date}")
-    db = JejuEnergyDB("jeju_energy.db")
+    db = JejuEnergyDB()
     current_dt = start_dt
     
     while current_dt <= end_dt:

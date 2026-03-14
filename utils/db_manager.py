@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import sqlite3
+import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -8,9 +9,16 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 class JejuEnergyDB:
     """제주 에너지 데이터베이스 최종 버전"""
-    
-    def __init__(self, db_path="jeju_energy.db"):
+    def __init__(self, db_path="database/jeju_energy.db"):
         self.db_path = db_path
+        
+        # 1. 파일 경로에서 '폴더 이름(database)'만 쏙 뽑아냅니다.
+        folder_path = os.path.dirname(self.db_path)
+        
+        # 2. 만약 그 폴더가 존재하지 않는다면? 에러 내지 말고 알아서 만들어라!
+        if folder_path:  
+            os.makedirs(folder_path, exist_ok=True)
+            
         self.conn = sqlite3.connect(db_path, check_same_thread=False)
         self._init_tables()
         print(f"DB 연결: {db_path}")

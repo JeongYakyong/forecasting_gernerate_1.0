@@ -23,7 +23,7 @@ def fetch_kpx_past(start_date, end_date):
     }
     
     try:
-        resp = requests.post(url, data=payload, headers=headers, timeout=30)
+        resp = requests.post(url, data=payload, headers=headers, timeout=30, verify=False)
         resp.raise_for_status()
         
         df = pd.read_csv(io.StringIO(resp.text))
@@ -70,7 +70,7 @@ def fetch_kpx_future(target_date, service_key):
     }
     
     try:
-        resp = requests.get(url, params=params, timeout=30)
+        resp = requests.get(url, params=params, timeout=30, verify = False)
         resp.raise_for_status()
         
         items = resp.json()['response']['body']['items']['item']
@@ -164,7 +164,7 @@ def fetch_kma_past_asos(start_date, end_date, auth_key):
     }
     
     try:
-        resp = requests.get(url, params=params, timeout=30)
+        resp = requests.get(url, params=params, timeout=30, verify = False)
         resp.raise_for_status()
         
         # 주석(#) 제거하고 데이터만 추출
@@ -286,7 +286,7 @@ def fetch_kma_future_ncm(lat, lon, auth_key, base_date_kst):
             'disp': 'A', 'help': '0', 'authKey': auth_key
         }
         try:
-            resp = session.get(url, params=params, timeout=10)
+            resp = session.get(url, params=params, timeout=10, verify=False)
             if resp.status_code == 200:
                 data = parse_raw_text_by_varn(resp.text)
                 if data:

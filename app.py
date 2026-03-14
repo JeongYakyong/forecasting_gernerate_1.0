@@ -1,7 +1,8 @@
+'''
 import builtins, sys
 _orig = builtins.print
 builtins.print = lambda *a, **kw: _orig(*a, **{**kw, "flush": True})
-
+'''
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -17,6 +18,7 @@ import torch.nn.functional as F
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import logging
 import warnings
+import os
 
 warnings.filterwarnings("ignore", message=".*torch.classes.*")
 logging.getLogger("torch").setLevel(logging.ERROR)
@@ -167,12 +169,17 @@ class PatchTST_Weather_Model(nn.Module):
         prediction = self.regressor(total_input)
 
         return prediction
+# 1. 📍 현재 이 코드(app.py)가 있는 진짜 위치(절대 경로)를 추적해서 닻을 내립니다.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# 3. 리소스 로드 함수
+# 2. 📁 닻을 내린 위치(BASE_DIR) 아래에 'database' 폴더와 'jeju_energy.db'를 튼튼하게 조립합니다.
+DB_PATH = os.path.join(BASE_DIR, "database", "jeju_energy.db")
+
+# 3. 🚀 조립된 완벽한 절대 경로를 넘겨줍니다.
 @st.cache_resource
 def get_db():
-    return JejuEnergyDB("database/jeju_energy.db")
-
+    return JejuEnergyDB(DB_PATH)
+    
 @st.cache_resource
 def load_assets():
     print("[1/6] load_assets 시작!")
