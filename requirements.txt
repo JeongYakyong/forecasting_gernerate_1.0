@@ -1,0 +1,12 @@
+streamlit
+pandas
+numpy
+torch
+joblib
+pvlib
+matplotlib
+plotly
+scikit-learn
+requests
+urllib3
+python-dotenv
