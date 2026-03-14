@@ -1,3 +1,7 @@
+import builtins, sys
+_orig = builtins.print
+builtins.print = lambda *a, **kw: _orig(*a, **{**kw, "flush": True})
+
 import streamlit as st
 import pandas as pd
 import numpy as np
