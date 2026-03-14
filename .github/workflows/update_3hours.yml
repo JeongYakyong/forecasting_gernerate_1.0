@@ -1,4 +1,4 @@
-name: 🕒 3시간 주기 KPX 실적 수집
+name: 3시간 주기 KPX 실적 수집
 
 on:
   schedule:
@@ -28,5 +28,5 @@ jobs:
       - name: DB 자동 커밋
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "🔄 [자동] KPX 실적 데이터 업데이트"
+          commit_message: "[자동] KPX 실적 데이터 업데이트"
           file_pattern: database/jeju_energy.db
