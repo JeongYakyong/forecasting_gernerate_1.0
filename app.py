@@ -1280,26 +1280,13 @@ elif menu == "Option D : 예측 결과 시각화":
 
                 if target_start <= now <= target_end:
                     now_str = now.strftime('%Y-%m-%d %H:%M:%S')
-                    
-                    # 세로선
-                    fig.add_shape(
-                        type="line",
-                        x0=now_str, x1=now_str,
-                        y0=0, y1=1,
-                        yref="paper",
-                        line=dict(color="red", width=2, dash="dash")
-                    )
-
-                if target_start <= now <= target_end:
-                    now_str = now.strftime('%Y-%m-%d %H:%M:%S')
-                    
                     # 세로선 추가
                     fig.add_vline(x=now_str, line_width=1, line_dash="solid", line_color="black")
                     
                     # 텍스트 라벨 추가
                     fig.add_annotation(
                         x=now_str,
-                        y=-0.02,
+                        y=-0.1,
                         yref="paper",
                         text="현재",
                         showarrow=False,
