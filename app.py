@@ -1279,11 +1279,12 @@ elif menu == "Option D : 예측 결과 시각화":
                 
                 if target_start <= now <= target_end:
                     fig.add_vline(
-                        x=now, line_width=2, line_dash="dash", line_color="red",
+                        x=now.strftime('%Y-%m-%d %H:%M:%S'),
+                        line_width=2, line_dash="dash", line_color="red",
                         annotation_text=f"현재 {now.strftime('%H:%M')}",
-                        annotation_position="top right", annotation_font=dict(color="red", size=12)
+                        annotation_position="top right",
+                        annotation_font=dict(color="red", size=12)
                     )
-                
                 # --- 위험 구간 음영 ---
                 def draw_danger_zones(condition_series, fill_color, annotation_text=None, show_legend_label=None, layer_pos="below", fill_opacity=0.15):
                     if condition_series.any():
