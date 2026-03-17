@@ -1277,13 +1277,17 @@ elif menu == "Option D : 예측 결과 시각화":
                 target_start = datetime.combine(target_date, datetime.min.time())
                 target_end = datetime.combine(target_date, datetime.max.time())
                 # 변경 후: datetime을 문자열로 변환
+
                 if target_start <= now <= target_end:
-                    fig.add_vline(
-                        x=now.strftime('%Y-%m-%d %H:%M:%S'),
-                        line_width=2, line_dash="dash", line_color="red",
-                        annotation_text=f"현재 {now.strftime('%H:%M')}",
-                        annotation_position="top right",
-                        annotation_font=dict(color="red", size=12)
+                    now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+                    
+                    # 세로선
+                    fig.add_shape(
+                        type="line",
+                        x0=now_str, x1=now_str,
+                        y0=0, y1=1,
+                        yref="paper",
+                        line=dict(color="red", width=2, dash="dash")
                     )
 
                 if target_start <= now <= target_end:
