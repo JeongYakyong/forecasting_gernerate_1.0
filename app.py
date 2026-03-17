@@ -1299,7 +1299,7 @@ elif menu == "Option D : 예측 결과 시각화":
                     # 텍스트 라벨 추가
                     fig.add_annotation(
                         x=now_str,
-                        y=1.02,
+                        y=-0.02,
                         yref="paper",
                         text="현재",
                         showarrow=False,
